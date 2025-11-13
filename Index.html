@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Proyecto Park Güell</title>
+<style>
+  :root {
+    --color-main: #c49a6c;
+    --color-bg: #f6f2e9;
+    --color-dark: #3e2a1a;
+  }
+
+  * { box-sizing: border-box; scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: var(--color-bg);
+    color: #333;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, #c49a6c, #e0b98b);
+    color: white;
+    padding: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #8e6234;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+  }
+
+  .logo-text {
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  nav a {
+    margin-left: 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    padding: 6px 10px;
+    border-radius: 999px;
+    transition: background 0.3s, transform 0.2s;
+  }
+
+  nav a:hover {
+    background: rgba(255,255,255,0.2);
+    transform: translateY(-1px);
+  }
+
+  /* HERO */
+  .hero {
+    padding: 50px 20px 30px;
+    text-align: center;
+    max-width: 900px;
+    margin: auto;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+    color: var(--color-dark);
+  }
+
+  .hero p {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+
+  .hero-btns {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    border: none;
+    padding: 10px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+
+  .btn-main {
+    background: var(--color-main);
+    color: white;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  }
+
+  .btn-main:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(0,0,0,0.25);
+  }
+
+  .btn-outline {
+    background: white;
+    color: var(--color-main);
+    border: 1px solid var(--color-main);
+  }
+
+  .btn-outline:hover {
+    background: #f3e1cd;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 30px 20px;
+  }
+
+  .content {
+    max-width: 950px;
+    margin: auto;
+  }
+
+  h2.section-title {
+    border-left: 5px solid var(--color-main);
+    padding-left: 10px;
+    color: var(--color-dark);
+    margin-bottom: 15px;
+  }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 20px;
+  }
+
+  .card {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    margin-bottom: 15px;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+
+  .tag {
+    display: inline-block;
+    background: #f2e4d3;
+    color: #5b3c24;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+  }
+
+  /* LUGARES DESTACADOS */
+  .places-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 15px;
+  }
+
+  .place-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .place-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .place-card img {
+    height: 150px;
+  }
+
+  .place-card-body {
+    padding: 10px 12px 14px;
+  }
+
+  .place-card-body h3 {
+    margin: 0 0 6px;
+    font-size: 1rem;
+    color: var(--color-dark);
+  }
+
+  .place-card-body p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  /* ANIMACIÓN SUAVE DE APARICIÓN */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* PDF */
+  .pdf-frame {
+    width: 100%;
+    height: 600px;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    background: #fff;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 15px;
+    background: var(--color-main);
+    color: white;
+    font-size: 0.85rem;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .grid-2 { grid-template-columns: 1fr; }
+    header { flex-direction: column; align-items: flex-start; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-circle">PG</div>
+    <div class="logo-text">Proyecto Park Güell</div>
+  </div>
+  <nav>
+    <a href="#info">Información</a>
+    <a href="#historia">Historia</a>
+    <a href="#lugares">Lugares</a>
+    <a href="#plano">Plano</a>
+    <a href="#consejos">Consejos</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Park Güell – Barcelona, España</h1>
+  <p>Folleto interactivo sencillo sobre uno de los lugares más famosos de Barcelona. Proyecto escolar hecho con una página web.</p>
+  <div class="hero-btns">
+    <button class="btn btn-main" onclick="document.getElementById('info').scrollIntoView()">Ver información básica</button>
+    <button class="btn btn-outline" onclick="document.getElementById('lugares').scrollIntoView()">Ver lugares importantes</button>
+  </div>
+</section>
+
+<section id="info">
+  <div class="content grid-2 fade-in">
+    <div>
+      <h2 class="section-title">Información básica</h2>
+      <div class="card">
+        <span class="tag">Dirección</span>
+        <p>Carrer d’Olot, 08024, Barcelona, España.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Horario</span>
+        <p>Todos los días: 9:00 am – 8:30 pm (el horario puede cambiar según la temporada).</p>
+      </div>
+      <div class="card">
+        <span class="tag">Precio</span>
+        <p>Adultos: 10–13 €.<br>Niños, estudiantes y mayores: precio reducido.</p>
+      </div>
+    </div>
+    <div class="card">
+      <!-- Vista general del parque / bancos ondulados -->
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Barcelona_-_Parc_G%C3%BCell_-_Main_square_-_Panorama_View_along_curved_mosaic_benches_towards_the_Entrance_Buildings_04.jpg"
+           alt="Vista general de la Plaza de la Naturaleza en Park Güell">
+      <p style="font-size:0.85rem; margin-top:8px;">
+        Vista de la Plaza de la Naturaleza con los bancos de mosaico y la ciudad al fondo.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="historia">
+  <div class="content fade-in">
+    <h2 class="section-title">Historia del lugar</h2>
+    <div class="card">
+      <p>
+        El Park Güell fue construido entre 1900 y 1914. El arquitecto fue Antoni Gaudí. 
+        Era parte de un proyecto para casas elegantes, pero el plan no funcionó. 
+        En 1926 el parque se abrió al público y en 1984 la UNESCO lo declaró Patrimonio de la Humanidad.
+      </p>
+      <p>
+        El estilo del parque mezcla naturaleza y arte: mosaicos, curvas, columnas y figuras de animales. 
+        Hoy es uno de los lugares más visitados de Barcelona.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="lugares">
+  <div class="content fade-in">
+    <h2 class="section-title">Lugares importantes dentro del Park Güell</h2>
+    <div class="places-grid">
+      <div class="place-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Park_G%C3%BCell_-_Pabell%C3%B3n_de_entrada.jpg"
+             alt="Pabellones de entrada del Park Güell">
+        <div class="place-card-body">
+          <h3>Pabellones de la Entrada</h3>
+          <p>Dos edificios pequeños al entrar al parque, con techos y formas curvas que parecen casas de cuento.</p>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Barcelona_Parc_G%C3%BCell_el_drac.jpg"
+             alt="Dragón de mosaico en la escalera del Park Güell">
+        <div class="place-card-body">
+          <h3>Escalera Monumental y dragón</h3>
+          <p>Escalera grande con el famoso dragón de mosaico de colores, símbolo del Park Güell.</p>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Park_G%C3%BCell_Hypostyle_Hall_from_below_01.jpg"
+             alt="Sala Hipóstila del Park Güell">
+        <div class="place-card-body">
+          <h3>Sala Hipóstila</h3>
+          <p>Espacio con muchas columnas. Pensado como mercado cubierto. El techo tiene mosaicos circulares.</p>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Barcelona_-_Parc_G%C3%BCell_-_Main_square_-_Panorama_View_along_curved_mosaic_benches_towards_the_Entrance_Buildings_04.jpg"
+             alt="Plaza de la Naturaleza en Park Güell">
+        <div class="place-card-body">
+          <h3>Plaza de la Naturaleza</h3>
+          <p>Plaza alta con banco ondulado de mosaicos. Tiene vistas muy bonitas de la ciudad.</p>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Park_Guel-panoramic.jpg"
+             alt="Viaductos y caminos de piedra en Park Güell">
+        <div class="place-card-body">
+          <h3>Viaductos</h3>
+          <p>Caminos de piedra que ayudan a moverse por el parque sin problema con la inclinación.</p>
+        </div>
+      </div>
+
+      <div class="place-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Gaudi%27s_Park_G%C3%BCell_Entrance_Confection.jpg"
+             alt="Entrada general del Park Güell">
+        <div class="place-card-body">
+          <h3>Entrada general</h3>
+          <p>Vista de la entrada principal con los pabellones y la escalinata. Uno de los puntos más conocidos del parque.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="plano">
+  <div class="content fade-in">
+    <h2 class="section-title">Plano completo del parque (PDF)</h2>
+    <div class="card">
+      <p>
+        Aquí puedes ver el folleto oficial con el plano completo del Park Güell en PDF.
+        Para que funcione, sube el archivo a tu repositorio en la carpeta <code>pdf/</code> 
+        con el nombre <code>park_guell_plano_oficial.pdf</code>.
+      </p>
+      <p>
+        <a href="pdf/park_guell_plano_oficial.pdf" target="_blank">
+          👉 Abrir plano del Park Güell en una nueva pestaña (PDF)
+        </a>
+      </p>
+      <p style="font-size:0.9rem; margin-top:10px;">Vista previa dentro de la página:</p>
+      <iframe class="pdf-frame"
+              src="pdf/park_guell_plano_oficial.pdf">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<section id="consejos">
+  <div class="content fade-in">
+    <h2 class="section-title">Consejos para la visita</h2>
+    <div class="card">
+      <ul>
+        <li>Usar zapatos cómodos para caminar.</li>
+        <li>Llevar agua, el parque es grande y hay muchas subidas.</li>
+        <li>Comprar las entradas con tiempo para evitar filas.</li>
+        <li>Respetar las zonas protegidas y no dañar los mosaicos.</li>
+        <li>Tomar muchas fotos: el lugar es muy fotogénico.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2025 Proyecto Park Güell – Folleto interactivo para la clase.
+</footer>
+
+<script>
+  // Animación de aparición al hacer scroll
+  const elements = document.querySelectorAll('.fade-in');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.2 });
+
+  elements.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
